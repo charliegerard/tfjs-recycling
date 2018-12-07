@@ -1,0 +1,89 @@
+body{
+  margin: 0;
+  font-family: "Open Sans", "Helvetica";
+}
+
+.app{
+  background: linear-gradient(115deg, rgb(247, 251, 255), rgb(173,217,251) 80%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 1em 0;
+}
+
+h1, h2{
+  text-align: center;
+  font-family: "Open Sans", "Helvetica";
+  width: 80%;
+  margin: .5em auto;
+}
+
+h1{
+  font-size: 25px;
+  font-weight: 600;
+}
+
+h2{
+  font-weight: 400;
+  font-size: 14px;
+  width: 60%;
+}
+
+#webcam-frame{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2em 0;
+}
+
+#guess-button{
+  background-color: rgb(134,240,190);
+  border: 1px solid rgb(6,29,71);
+  border-radius: .3em;
+  padding: 1em 2em;
+  color: rgb(21,49,104);
+  font-size: 14px;
+  display: block;
+  margin: 0 auto 1em auto;
+}
+
+#confirmation-buttons{
+  display: none;
+  width: fit-content;
+  margin: 1em auto;
+  /* display: block; */
+}
+
+#yes, #no, #next{
+  border-radius: .3em;
+  padding: 1em 2em;
+  background-color: rgb(134,240,190);
+  border: 1px solid rgb(6,29,71);
+  color: rgb(21,49,104);
+  width: fit-content;
+}
+
+#yes{
+  margin-right: 1em;
+}
+
+#result, #recycling-classification{
+  font-family: "Open Sans", "Helvetica";
+  display: block;
+  margin: 1em auto;
+  width: fit-content;
+  color: rgb(21,49,104);
+}
+
+#recycling-classification{
+  font-size: 20px;
+}
+
+#next{
+  display: none;
+  margin: 0 auto;
+  font-size: 14px;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Image recognition for easier recycling</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <section class="app">
+      <h1>Recyclable or not recyclable?</h1>
+      <h2>Use image recognition with machine learning to find out!</h2>
+      <div>
+        <div id="webcam-frame">
+          <video id="webcam" width="224px" height="224" autoplay playsinline muted></video>
+        </div>
+        <button id="guess-button" class="blinking">Initializing...</button>
+        <div id="result"></div>
+        <div id="confirmation-buttons">
+          <button id="yes">Yes</button>
+          <button id="no">No</button>
+        </div>
+        <div id="recycling-classification"></div>
+        <div id="next">I'm done</div>
+      </div>
+    </section>
+
+    <script src="./bundle.js" charset="utf-8"></script>
+  </body>
+</html>
