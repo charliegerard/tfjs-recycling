@@ -6,10 +6,11 @@ import * as tf from '@tensorflow/tfjs-core';
 import {loadFrozenModel} from '@tensorflow/tfjs-converter';
 import {find} from 'lodash';
 
-import {IMAGENET_CLASSES} from './imagenet_classes';
+import {IMAGENET_CLASSES} from './data/imagenet_classes';
 import {Webcam} from './webcam';
 import {isMobile} from './utils';
-import {yellowBinItems} from './yellowBinList';
+import {yellowBinItems} from './data/yellowBinList';
+import {redBinItems} from './data/redBinList';
 
 const MODEL_PATH_PREFIX = 'https://storage.googleapis.com/tfjs-models/savedmodel/';
 const MODEL_FILENAME = 'mobilenet_v1_1.0_224/optimized_model.pb';
@@ -57,8 +58,8 @@ window.onload = async () => {
   guessButton.onclick = () => runPredictions();
 
   const runPredictions = () => {
-    hideClassification();
-    hideMainButton();
+    hideElement([classificationDiv, guessButton])
+
     const predictions = tf.tidy(() => {
       const input = webcam.capture();
       const output = model.execute({[INPUT_NODE_NAME]: input}, OUTPUT_NODE_NAME);
@@ -78,15 +79,21 @@ window.onload = async () => {
 
   const classifyItem = item => {
     const yellowItemFound = find(yellowBinItems, yellowBinItem => item === yellowBinItem);
+    const redItemFound = find(redBinItems, redBinItem => item === redBinItem);
+
     if(yellowItemFound){
       displayButtons('yellow')
+    } else if(redItemFound) {
+      displayButtons('red')
     } else {
-      displayButtons()
+      console.log("Mmmm, I don't seem to know yet how to classify that but...")
+      console.log("Is it made of soft plastic, aluminium, paper, glass or cardboard?") // => yellow bin
+      console.log("If not, better put it in the red bin") // => red bin
     }
   }
 
   const displayButtons = color => {
-    showPredictionAndButtons();
+    showElement([confirmationButtons, resultDiv])
 
     const yesButton = document.getElementById('yes');
     const noButton = document.getElementById('no');
@@ -97,46 +104,31 @@ window.onload = async () => {
 
   const displayClassification = color => {
     showClassification();
-    if(color === "yellow"){
-      classificationDiv.innerHTML = `It is recyclable! Throw it in the ${color} bin! 🎉`
-      hidePredictionAndButtons()
+
+    switch(color){
+      case "yellow":
+        classificationDiv.innerHTML = `It is recyclable! Throw it in the ${color} bin! 🎉`;
+        hideElement([confirmationButtons, resultDiv])
+        break;
+      default:
+        break;
     }
-  }
-
-  const hidePredictionAndButtons = () => {
-    confirmationButtons.style.display = 'none';
-    resultDiv.style.display = 'none';
-  }
-
-  const hideClassification = () => {
-    classificationDiv.style.display = 'none';
-  }
-
-  const showPredictionAndButtons = () => {
-    confirmationButtons.style.display = 'block';
-    resultDiv.style.display = 'block';
   }
 
   const showClassification = () => {
-    classificationDiv.style.display = 'block';
-    doneButton.style.display = 'block';
+    showElement([classificationDiv, doneButton]);
 
     doneButton.onclick = () => {
-      showMainButton();
-      hideClassification();
-      hideDoneButton();
+      showElement(guessButton)
+      hideElement([classificationDiv, doneButton])
     }
   }
 
-  const hideMainButton = () => {
-    guessButton.style.display = 'none';
+  const hideElement = (element) => {
+    return element.length ? element.map(e => e.style.display = 'none') : element.style.display = 'none';
   }
 
-  const showMainButton = () => {
-    guessButton.style.display = 'block';
-  }
-
-  const hideDoneButton = () => {
-    doneButton.style.display = 'none';
+  const showElement = (element) => {
+    return element.length ? element.map(e => screen.style.display = 'block') : element.style.display = 'block';
   }
 };

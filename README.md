@@ -32,3 +32,9 @@ A browser window/tab should open on port 8080.
 To build the project, run `yarn build` and the `public` directory will have the deployable files.
 
 
+## To do
+
+- [ ] Improve UI
+- [ ]
+
+

@@ -8,6 +8,9 @@ export const yellowBinItems = [
   'cardboard box',
   'box',
   'newspaper',
-  'magazine'
+  'magazine',
+  'beer glass',
+  'plate',
+  'toilet paper'
 ]
 
