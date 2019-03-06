@@ -1,10 +1,9 @@
 
-// // ref: https://github.com/tensorflow/tfjs-converter/blob/master/demo/mobilenet/mobilenet.js
-// // ref: https://github.com/tensorflow/tfjs-examples/blob/master/webcam-transfer-learning/index.js
+// ref: https://github.com/tensorflow/tfjs-converter/blob/master/demo/mobilenet/mobilenet.js
+// ref: https://github.com/tensorflow/tfjs-examples/blob/master/webcam-transfer-learning/index.js
 
-// import * as tf from '@tensorflow/tfjs';
+import * as tf from '@tensorflow/tfjs';
 import * as mobilenet from '@tensorflow-models/mobilenet';
-// // import {loadFrozenModel} from '@tensorflow/tfjs-converter';
 import {find} from 'lodash';
 
 import {IMAGENET_CLASSES} from './data/imagenet_classes';
@@ -45,9 +44,11 @@ window.onload = async () => {
   const runPredictions = async() => {
     hideElement([classificationDiv, guessButton])
 
-    let webcam = document.getElementsByTagName('video')[0];
+    let webcamImage = webcam.capture();
 
-    let predictions = await model.classify(webcam);
+    let resizedWebcam = tf.image.resizeBilinear(webcamImage, [224, 224]);
+
+    let predictions = await model.classify(resizedWebcam);
 
     resultDiv.innerText = '';
     resultDiv.innerHTML = `Is it a ${predictions[0].className.split(',')[0]}?`
@@ -64,9 +65,7 @@ window.onload = async () => {
     } else if(redItemFound) {
       displayButtons('red')
     } else {
-      console.log("Mmmm, I don't seem to know yet how to classify that but...")
-      console.log("Is it made of soft plastic, aluminium, paper, glass or cardboard?") // => yellow bin
-      console.log("If not, better put it in the red bin") // => red bin
+      displayButtons('none')
     }
   }
 
@@ -75,31 +74,53 @@ window.onload = async () => {
 
     const yesButton = document.getElementById('yes');
     const noButton = document.getElementById('no');
-    yesButton.onclick = () => displayClassification(color);
 
+    yesButton.onclick = () => displayClassification(color);
     noButton.onclick = () => runPredictions();
   }
 
   const displayClassification = color => {
     showClassification();
+    let content;
 
     switch(color){
       case "yellow":
-        classificationDiv.innerHTML = `It is recyclable! Throw it in the ${color} bin! 🎉`;
-        hideElement([confirmationButtons, resultDiv])
+        content = `It is recyclable! Throw it in the ${color} bin! 🎉`;
+        hideElement([confirmationButtons, resultDiv]);
+        break;
+      case "red":
+        content = `It is not recyclable 😢Throw it in the ${color} bin.`;
+        hideElement([confirmationButtons, resultDiv]);
+        break;
+      case "none":
+        content = `Mmmm, I don't seem to know yet how to classify that but...\n
+        Is it made of soft plastic, aluminium, paper, glass or cardboard?`;
+        displayLastButtons();
         break;
       default:
         break;
     }
+    classificationDiv.innerHTML = content;
+    // hideElement([confirmationButtons, resultDiv]);
+  }
+
+  const displayLastButtons = () => {
+    showElement([confirmationButtons, resultDiv])
+
+    const yesButton = document.getElementById('yes');
+    const noButton = document.getElementById('no');
+
+    yesButton.onclick = () => classificationDiv.innerHTML = "You can probably throw it in the yello bin!!";
+    noButton.onclick = () => classificationDiv.innerHTML = "Mmmm... better put it in the red bin";
   }
 
   const showClassification = () => {
-    showElement([classificationDiv, doneButton]);
+    showElement(classificationDiv);
 
-    doneButton.onclick = () => {
-      showElement(guessButton)
-      hideElement([classificationDiv, doneButton])
-    }
+    // doneButton.onclick = () => {
+    //   showElement(guessButton)
+    //   hideElement([classificationDiv, doneButton])
+    // }
   }
 
   const hideElement = (element) => {
@@ -107,9 +128,8 @@ window.onload = async () => {
   }
 
   const showElement = (element) => {
-    return element.length ? element.map(e => screen.style.display = 'block') : element.style.display = 'block';
+    return element.length ? element.map(e => e.style.display = 'block') : element.style.display = 'block';
   }
-
 };
 
 
