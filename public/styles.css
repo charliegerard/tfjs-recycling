@@ -1,4 +1,4 @@
-body{
+/* body{
   margin: 0;
   font-family: "Open Sans", "Helvetica";
 }
@@ -12,13 +12,21 @@ body{
   height: 100%;
   margin: 0;
   padding: 1em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.app .intro{
+  justify-content: center;
+  align-items: center;
+} */
 
 h1, h2{
   text-align: center;
   font-family: "Open Sans", "Helvetica";
   width: 80%;
-  margin: .5em auto;
+  margin: 0 auto;
 }
 
 h1{
@@ -86,4 +94,8 @@ h2{
   display: none;
   margin: 0 auto;
   font-size: 14px;
+}
+
+.feed{
+  display: none;
 }

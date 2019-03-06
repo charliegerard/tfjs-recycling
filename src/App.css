@@ -1,0 +1,23 @@
+body{
+  margin: 0;
+  font-family: "Open Sans", "Helvetica";
+}
+
+.app{
+  background: linear-gradient(115deg, rgb(247, 251, 255), rgb(173,217,251) 80%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 1em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app .intro{
+  justify-content: center;
+  align-items: center;
+}

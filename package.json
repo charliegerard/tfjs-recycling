@@ -17,33 +17,24 @@
     "@tensorflow-models/coco-ssd": "^0.1.1",
     "@tensorflow-models/mobilenet": "^0.2.2",
     "@tensorflow/tfjs": "0.15.3",
-    "lodash": "^4.17.11"
+    "babel-polyfill": "^6.26.0",
+    "lodash": "^4.17.11",
+    "style-loader": "^0.23.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-loader": "^8.0.5",
     "babel-preset-env": "^1.6.1",
-    "webpack": "*",
+    "css-loader": "^2.1.0",
+    "webpack": "^4.29.6",
     "webpack-cli": "*",
     "webpack-dev-server": "*"
   },
-  "babel": {
-    "presets": [
-      [
-        "env",
-        {
-          "esmodules": false,
-          "targets": {
-            "browsers": [
-              "> 1%",
-              "last 3 versions",
-              "ie >= 9",
-              "ios >= 8",
-              "android >= 4.2"
-            ]
-          },
-          "useBuiltIns": "usage"
-        }
-      ]
-    ]
-  },
-  "browser": { "fs": false, "path": false, "os": false}
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  }
 }

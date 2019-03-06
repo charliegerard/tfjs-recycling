@@ -2,13 +2,12 @@
 // ref: https://github.com/tensorflow/tfjs-converter/blob/master/demo/mobilenet/mobilenet.js
 // ref: https://github.com/tensorflow/tfjs-examples/blob/master/webcam-transfer-learning/index.js
 
-import * as tf from '@tensorflow/tfjs';
+import 'babel-polyfill';
 import * as mobilenet from '@tensorflow-models/mobilenet';
 import {find} from 'lodash';
+import ImageRecognition from './ImageRecognition.js';
+import './App.css';
 
-import {IMAGENET_CLASSES} from './data/imagenet_classes';
-import {Webcam} from './webcam';
-import {isMobile} from './utils';
 import {yellowBinItems} from './data/yellowBinList';
 import {redBinItems} from './data/redBinList';
 
@@ -18,56 +17,13 @@ window.onload = async () => {
   const doneButton = document.getElementById('next');
   const model = await mobilenet.load();
 
-  const webcam = new Webcam(document.getElementById('webcam'));
   const resultDiv = document.getElementById('result');
-  try {
-    // If on mobile, use the back camera. Otherwise, flip the playback video.
-    const facingMode = isMobile() ? 'environment' : 'user';
-    if (!isMobile()) {
-      webcam.webcamElement.classList.add('flip-horizontally');
-    }
-    await webcam.setup({'video': {facingMode: facingMode}, 'audio': false});
-    console.log('WebCam sccessfully initialized');
-  } catch (e) {
-    resultDiv.innerHTML =
-        'WebCam not available.<br/>' +
-        'This demo requires WebCam access with this browser.';
-    return;
-  }
 
   const guessButton = document.getElementById('guess-button');
   guessButton.classList.remove('blinking');
   guessButton.innerText = 'What do I do with this?';
 
-  guessButton.onclick = () => runPredictions();
-
-  const runPredictions = async() => {
-    hideElement([classificationDiv, guessButton])
-
-    let webcamImage = webcam.capture();
-
-    let resizedWebcam = tf.image.resizeBilinear(webcamImage, [224, 224]);
-
-    let predictions = await model.classify(resizedWebcam);
-
-    resultDiv.innerText = '';
-    resultDiv.innerHTML = `Is it a ${predictions[0].className.split(',')[0]}?`
-
-    classifyItem(predictions[0].className.split(',')[0])
-  }
-
-  const classifyItem = item => {
-    const yellowItemFound = find(yellowBinItems, yellowBinItem => item === yellowBinItem);
-    const redItemFound = find(redBinItems, redBinItem => item === redBinItem);
-
-    if(yellowItemFound){
-      displayButtons('yellow')
-    } else if(redItemFound) {
-      displayButtons('red')
-    } else {
-      displayButtons('none')
-    }
-  }
+  guessButton.onclick = () => ImageRecognition.runPredictions();
 
   const displayButtons = color => {
     showElement([confirmationButtons, resultDiv])
