@@ -14,9 +14,9 @@
     "clean-all": "rm -rf public/bundle.js node_modules"
   },
   "dependencies": {
-    "@tensorflow/tfjs": "^0.15.3",
-    "@tensorflow/tfjs-converter": "^0.8.4",
-    "@tensorflow/tfjs-core": "^0.15.4",
+    "@tensorflow-models/coco-ssd": "^0.1.1",
+    "@tensorflow-models/mobilenet": "^0.2.2",
+    "@tensorflow/tfjs": "0.15.3",
     "lodash": "^4.17.11"
   },
   "devDependencies": {
@@ -44,5 +44,6 @@
         }
       ]
     ]
-  }
+  },
+  "browser": { "fs": false, "path": false, "os": false}
 }

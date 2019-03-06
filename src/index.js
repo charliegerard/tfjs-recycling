@@ -1,9 +1,10 @@
 
-// ref: https://github.com/tensorflow/tfjs-converter/blob/master/demo/mobilenet/mobilenet.js
-// ref: https://github.com/tensorflow/tfjs-examples/blob/master/webcam-transfer-learning/index.js
+// // ref: https://github.com/tensorflow/tfjs-converter/blob/master/demo/mobilenet/mobilenet.js
+// // ref: https://github.com/tensorflow/tfjs-examples/blob/master/webcam-transfer-learning/index.js
 
-import * as tf from '@tensorflow/tfjs-core';
-import {loadFrozenModel} from '@tensorflow/tfjs-converter';
+// import * as tf from '@tensorflow/tfjs';
+import * as mobilenet from '@tensorflow-models/mobilenet';
+// // import {loadFrozenModel} from '@tensorflow/tfjs-converter';
 import {find} from 'lodash';
 
 import {IMAGENET_CLASSES} from './data/imagenet_classes';
@@ -12,20 +13,11 @@ import {isMobile} from './utils';
 import {yellowBinItems} from './data/yellowBinList';
 import {redBinItems} from './data/redBinList';
 
-const MODEL_PATH_PREFIX = 'https://storage.googleapis.com/tfjs-models/savedmodel/';
-const MODEL_FILENAME = 'mobilenet_v1_1.0_224/optimized_model.pb';
-const WEIGHTS_FILENAME = 'mobilenet_v1_1.0_224/weights_manifest.json';
-const INPUT_NODE_NAME = 'input';
-const OUTPUT_NODE_NAME = 'MobilenetV1/Predictions/Reshape_1';
-
 window.onload = async () => {
   const confirmationButtons = document.getElementById('confirmation-buttons');
   const classificationDiv = document.getElementById('recycling-classification');
   const doneButton = document.getElementById('next');
-
-  const model = await loadFrozenModel(
-      MODEL_PATH_PREFIX + MODEL_FILENAME,
-      MODEL_PATH_PREFIX + WEIGHTS_FILENAME);
+  const model = await mobilenet.load();
 
   const webcam = new Webcam(document.getElementById('webcam'));
   const resultDiv = document.getElementById('result');
@@ -44,37 +36,23 @@ window.onload = async () => {
     return;
   }
 
-  // Warm up the model. This uploads weights to the GPU and compiles the WebGL
-  // programs so the subsequent execution will be quick.
-  tf.tidy(() => {
-    const input = webcam.capture();
-    model.execute({[INPUT_NODE_NAME]: input}, OUTPUT_NODE_NAME);
-  });
-
   const guessButton = document.getElementById('guess-button');
   guessButton.classList.remove('blinking');
   guessButton.innerText = 'What do I do with this?';
 
   guessButton.onclick = () => runPredictions();
 
-  const runPredictions = () => {
+  const runPredictions = async() => {
     hideElement([classificationDiv, guessButton])
 
-    const predictions = tf.tidy(() => {
-      const input = webcam.capture();
-      const output = model.execute({[INPUT_NODE_NAME]: input}, OUTPUT_NODE_NAME);
-      return output.dataSync();
-    });
+    let webcam = document.getElementsByTagName('video')[0];
 
-    let predictionList = [];
-    for (let i = 0; i < predictions.length; i++) {
-      predictionList.push({label: IMAGENET_CLASSES[i], value: predictions[i]});
-    }
-    predictionList = predictionList.sort((a, b) => {return b.value - a.value;});
+    let predictions = await model.classify(webcam);
+
     resultDiv.innerText = '';
-    resultDiv.innerHTML = `Is it a ${predictionList[0].label.split(',')[0]}?`
+    resultDiv.innerHTML = `Is it a ${predictions[0].className.split(',')[0]}?`
 
-    classifyItem(predictionList[0].label.split(',')[0])
+    classifyItem(predictions[0].className.split(',')[0])
   }
 
   const classifyItem = item => {
@@ -131,4 +109,7 @@ window.onload = async () => {
   const showElement = (element) => {
     return element.length ? element.map(e => screen.style.display = 'block') : element.style.display = 'block';
   }
+
 };
+
+
