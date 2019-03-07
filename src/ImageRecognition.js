@@ -1,4 +1,3 @@
-import * as tf from '@tensorflow/tfjs';
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
 import {Webcam} from './utils/webcam';
 import {isMobile} from './utils/utils';
