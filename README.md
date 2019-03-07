@@ -21,16 +21,38 @@ My main goal so far was to see if it would work, and it kinda does :)
 
 ## Installing and running locally
 
-`git clone tfjs-recycling`
+1. Clone the repository:
+```bash
+git clone https://github.com/charliegerard/tfjs-recycling.git
+```
 
-`cd tfjs-recycling`
+2. Navigate to it:
+```bash
+cd tfjs-recycling
+```
+
+3. Install the dependencies:
+```bash
+yarn
+```
+
+4. Start:
 
 ```bash
-yarn        # Installs dependencies.
 yarn start
 ```
 
 A browser window/tab should open on port 8080.
+
+
+## Tech stack:
+
+* Tensorflow.js v0.15.3
+* Tensorflow model coco-ssd v0.1.1
+* HTML / CSS / JS
+* Webpack 4
+* Babel 7
+
 
 ## Building
 

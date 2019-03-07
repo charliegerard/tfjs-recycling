@@ -1,9 +1,9 @@
 {
   "name": "tfjs-recycling",
-  "version": "0.0.1",
-  "description": "Image recognition for easier recycling",
-  "author": "Charlie Gerard",
-  "license": "MIT",
+  "version": "1.0.0",
+  "description": "Use machine learning and image recognition for easier recycling",
+  "author": "Charlie Gerard <charlie.a.gerard@gmail.com>",
+  "license": "GNU",
   "private": false,
   "main": "src/index.js",
   "scripts": {
