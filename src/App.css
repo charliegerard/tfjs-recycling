@@ -113,16 +113,16 @@ video{
   bottom: 0;
   width: 100%;
   z-index: 10;
-  background: rgba(130, 128, 128, 0.5);
+  background: rgba(30, 41, 72, .6);
   padding: 1em 0;
 }
 
 #guess-button{
-  background-color: rgb(134,240,190);
-  border: 1px solid rgb(6,29,71);
+  background: none;
+  border: 2px solid white;
   border-radius: .3em;
   padding: 1em 2em;
-  color: rgb(21,49,104);
+  color: white;
   font-size: 14px;
   display: block;
   margin: 0 auto 0 auto;
@@ -137,9 +137,10 @@ video{
 #yes, #no, #next{
   border-radius: .3em;
   padding: 1em 2em;
-  background-color: rgb(134,240,190);
-  border: 1px solid rgb(6,29,71);
-  color: rgb(21,49,104);
+  background: none;
+  border: 2px solid rgb(199, 255, 131);
+  font-weight: 400;
+  color: rgb(199, 255, 131);
   width: fit-content;
 }
 
