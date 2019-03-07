@@ -47,7 +47,6 @@ h2{
 
 .blinking{
   animation: 2s infinite ease-in-out blink;
-  /* opacity: 1; */
 }
 
 @keyframes blink{
@@ -108,14 +107,13 @@ video{
   color: rgb(21,49,104);
   font-size: 14px;
   display: block;
-  margin: 0 auto 1em auto;
+  margin: 0 auto 0 auto;
 }
 
 #confirmation-buttons{
   display: none;
   width: fit-content;
-  margin: 1em auto;
-  /* display: block; */
+  margin: 0 auto 0 auto;
 }
 
 #yes, #no, #next{
@@ -134,13 +132,21 @@ video{
 #result, #recycling-classification{
   font-family: "Open Sans", "Helvetica";
   display: block;
-  margin: 1em auto;
+  margin: 0 auto;
   width: fit-content;
   color: white;
 }
 
 #recycling-classification{
   font-size: 20px;
+}
+
+#result{
+  padding: 0 1em 1em 1em;
+}
+
+#result:empty{
+  display: none;
 }
 
 #next{

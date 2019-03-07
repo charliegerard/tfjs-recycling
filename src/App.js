@@ -40,19 +40,23 @@ export default class App{
           this.guessButton.classList.remove('blinking');
           this.guessButton.innerText = 'Is this recyclable?';
           this.guessButton.onclick = () => {
-            this.recognitionFeature.runPredictions()
-              .then((predictionsResult) => {
-                if(predictionsResult){
-                  this.resultDiv.innerText = '';
-                  this.resultDiv.innerHTML = `Is it a ${predictionsResult[0].className.split(',')[0]}?`;
-                  hideElement([this.classificationDiv, this.guessButton]);
-
-                  this.classifyItem(predictionsResult[0].className.split(',')[0]);
-                }
-              });
+            this.predict();
           };
 
       })
+  }
+
+  predict = () => {
+    this.recognitionFeature.runPredictions()
+    .then((predictionsResult) => {
+      if(predictionsResult){
+        this.resultDiv.innerText = '';
+        this.resultDiv.innerHTML = `Is it a ${predictionsResult[0].className.split(',')[0]}?`;
+        hideElement([this.classificationDiv, this.guessButton]);
+
+        this.classifyItem(predictionsResult[0].className.split(',')[0]);
+      }
+    });
   }
 
   classifyItem = item => {
@@ -75,7 +79,7 @@ export default class App{
     const noButton = document.getElementById('no');
 
     yesButton.onclick = () => this.displayClassification(color);
-    noButton.onclick = () => this.recognitionFeature.runPredictions();
+    noButton.onclick = () => this.predict();
   }
 
   displayClassification = color => {
@@ -99,8 +103,8 @@ export default class App{
       default:
         break;
     }
-    this.classificationDiv.innerHTML = content;
-    // hideElement([confirmationButtons, resultDiv]);
+
+    this.resultDiv.innerHTML = content;
   }
 
   displayLastButtons = () => {
@@ -109,16 +113,22 @@ export default class App{
     const yesButton = document.getElementById('yes');
     const noButton = document.getElementById('no');
 
-    yesButton.onclick = () => this.classificationDiv.innerHTML = "You can probably throw it in the yello bin!!";
-    noButton.onclick = () => this.classificationDiv.innerHTML = "Mmmm... better put it in the red bin";
+    yesButton.onclick = () => this.showFinalMessage("You can probably throw it in the yellow bin!! 🎉");
+    noButton.onclick = () => this.showFinalMessage("Mmmm... better put it in the red bin");
+  }
+
+  showFinalMessage = content => {
+    this.resultDiv.innerHTML = content;
+    hideElement(this.confirmationButtons)
+    showElement(this.doneButton)
+
+    this.doneButton.onclick = () => {
+      showElement(this.guessButton)
+      hideElement([this.classificationDiv, this.doneButton, this.resultDiv])
+    }
   }
 
   showClassification = () => {
     showElement(this.classificationDiv);
-
-    // doneButton.onclick = () => {
-    //   showElement(guessButton)
-    //   hideElement([classificationDiv, doneButton])
-    // }
   }
 }
