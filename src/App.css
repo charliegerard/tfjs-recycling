@@ -30,6 +30,10 @@ h1.earth{
   margin-bottom: 0;
 }
 
+h1.earth::before  {
+  content: "🌏";
+}
+
 h2{
   font-weight: 300;
   color: rgb(199, 255, 131);
