@@ -11,7 +11,8 @@
     "watch": "webpack --watch",
     "start": "webpack-dev-server --open",
     "clean": "rm -rf public/bundle.js",
-    "clean-all": "rm -rf public/bundle.js node_modules"
+    "clean-all": "rm -rf public/bundle.js node_modules",
+    "now-build": "yarn build"
   },
   "dependencies": {
     "@tensorflow-models/coco-ssd": "^0.1.1",
@@ -31,10 +32,5 @@
     "webpack": "^4.29.6",
     "webpack-cli": "*",
     "webpack-dev-server": "*"
-  },
-  "browser": {
-    "fs": false,
-    "path": false,
-    "os": false
   }
 }

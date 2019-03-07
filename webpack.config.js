@@ -5,8 +5,7 @@ module.exports = {
   mode: 'development',
   entry: './src/index.js',
   output: {
-    filename: 'bundle.js',
-    path: path.join(__dirname, 'public')
+    filename: 'bundle.js'
   },
   module: {
     rules: [
@@ -22,9 +21,5 @@ module.exports = {
         }
       }
     ],
-  },
-  devServer: {
-    contentBase: path.join(__dirname, 'public')
-  },
-
+  }
 };

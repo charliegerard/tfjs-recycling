@@ -42,7 +42,7 @@ yarn
 yarn start
 ```
 
-A browser window/tab should open on port 8080.
+A browser window/tab should open on port 8081.
 
 
 ## Tech stack:
