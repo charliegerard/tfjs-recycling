@@ -19,6 +19,9 @@ My main goal so far was to see if it would work, and it kinda does :)
 [Working Demo](https://charliegerard.github.io/tfjs-recycling)
 
 
+![demo](recycle.gif)
+
+
 ## Installing and running locally
 
 1. Clone the repository:
