@@ -29,6 +29,7 @@
     "babel-loader": "^8.0.5",
     "babel-preset-env": "^1.6.1",
     "css-loader": "^2.1.0",
+    "uglifyjs-webpack-plugin": "^2.1.2",
     "webpack": "^4.29.6",
     "webpack-cli": "*",
     "webpack-dev-server": "*"
