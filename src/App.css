@@ -4,20 +4,31 @@ body{
 }
 
 .app{
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 100%;
   margin: 0;
-  padding: 1em 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.feed{
-  display: block;
-  position: relative;
-  width: 100%;
+h1, h2{
+  text-align: center;
+  font-family: "Open Sans", "Helvetica";
+  width: 80%;
+  margin: 0 auto;
+}
+
+h1{
+  font-size: 25px;
+  font-weight: 600;
+}
+
+h2{
+  font-weight: 400;
+  font-size: 14px;
+  width: 60%;
 }
 
 .app .intro{
@@ -25,10 +36,115 @@ body{
   align-items: center;
 }
 
+.intro .start-button{
+  display: block;
+  margin: 1em auto;
+  border: 1px solid black;
+  background: none;
+  border-radius: .3em;
+  padding: .5em 1em;
+}
+
+.blinking{
+  animation: 2s infinite ease-in-out blink;
+  /* opacity: 1; */
+}
+
+@keyframes blink{
+  0%{
+    opacity: 1;
+  }
+  50%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+.feed{
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.feed #webcam-frame{
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+video{
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
 .classification-content{
   position: absolute;
   bottom: 0;
   width: 100%;
   z-index: 10;
-  background: pink;
+  background: rgba(100,100,100,0.5);
+  padding: 1em 0;
+}
+
+
+
+#guess-button{
+  background-color: rgb(134,240,190);
+  border: 1px solid rgb(6,29,71);
+  border-radius: .3em;
+  padding: 1em 2em;
+  color: rgb(21,49,104);
+  font-size: 14px;
+  display: block;
+  margin: 0 auto 1em auto;
+}
+
+#confirmation-buttons{
+  display: none;
+  width: fit-content;
+  margin: 1em auto;
+  /* display: block; */
+}
+
+#yes, #no, #next{
+  border-radius: .3em;
+  padding: 1em 2em;
+  background-color: rgb(134,240,190);
+  border: 1px solid rgb(6,29,71);
+  color: rgb(21,49,104);
+  width: fit-content;
+}
+
+#yes{
+  margin-right: 1em;
+}
+
+#result, #recycling-classification{
+  font-family: "Open Sans", "Helvetica";
+  display: block;
+  margin: 1em auto;
+  width: fit-content;
+  color: white;
+}
+
+#recycling-classification{
+  font-size: 20px;
+}
+
+#next{
+  display: none;
+  margin: 0 auto;
+  font-size: 14px;
 }
