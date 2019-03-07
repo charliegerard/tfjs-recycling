@@ -83,4 +83,12 @@ function getQueryParam(query/*: string*/) {
   }
 }
 
-export {getQueryParam, isMobile, isIOS, isAndroid, isChrome, isChromeIOS};
+const hideElement = (element) => {
+  return element.length ? element.map(e => e.style.display = 'none') : element.style.display = 'none';
+}
+
+const showElement = (element) => {
+  return element.length ? element.map(e => e.style.display = 'block') : element.style.display = 'block';
+}
+
+export {getQueryParam, isMobile, isIOS, isAndroid, isChrome, isChromeIOS, hideElement, showElement};

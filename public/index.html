@@ -18,19 +18,21 @@
         <div id="webcam-frame">
           <video id="webcam" width="224" height="224" autoplay playsinline muted></video>
         </div>
-        <button id="guess-button" class="blinking">Initializing...</button>
-        <div id="result"></div>
-        <div id="confirmation-buttons">
-          <button id="yes">Yes</button>
-          <button id="no">No</button>
-        </div>
-        <div id="recycling-classification"></div>
-        <div id="extra-details"></div>
-        <div id="next">I'm done</div>
+
+        <section class="classification-content">
+          <button id="guess-button" class="blinking">Initializing...</button>
+          <div id="result"></div>
+          <div id="confirmation-buttons">
+            <button id="yes">Yes</button>
+            <button id="no">No</button>
+          </div>
+          <div id="recycling-classification"></div>
+          <div id="extra-details"></div>
+          <div id="next">I'm done</div>
+        </section>
       </div>
     </section>
     <!-- <canvas width="224" height="224"></canvas> -->
-
     <script src="./bundle.js" charset="utf-8"></script>
   </body>
 </html>

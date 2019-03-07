@@ -1,55 +1,50 @@
 import * as tf from '@tensorflow/tfjs';
 import * as mobilenet from '@tensorflow-models/mobilenet';
+import {hideElement, showElement} from './utils.js';
 import {IMAGENET_CLASSES} from './data/imagenet_classes';
 import {Webcam} from './webcam';
 import {isMobile} from './utils';
 
 
 export default class ImageRecognition {
+  constructor(){
+    this.webcam;
+    this.predictions;
+    this.model;
+  }
 
-  startWebcam = async() => {
-    const webcam = new Webcam(document.getElementById('webcam'));
+  loadModel = async() => {
+    this.model = await mobilenet.load();
+    return this.model;
+  }
+
+  initiateWebcam = async() => {
+    this.webcam = new Webcam(document.getElementById('webcam'));
+    this.webcam.webcamElement.width = window.innerWidth
+    this.webcam.webcamElement.height = window.innerHeight
 
     try {
       // If on mobile, use the back camera. Otherwise, flip the playback video.
       const facingMode = isMobile() ? 'environment' : 'user';
       if (!isMobile()) {
-        webcam.webcamElement.classList.add('flip-horizontally');
+        this.webcam.webcamElement.classList.add('flip-horizontally');
       }
-      await webcam.setup({'video': {facingMode: facingMode}, 'audio': false});
+      await this.webcam.setup({'video': {facingMode: facingMode}, 'audio': false});
       console.log('WebCam sccessfully initialized');
     } catch (e) {
-      resultDiv.innerHTML =
-          'WebCam not available.<br/>' +
-          'This demo requires WebCam access with this browser.';
+      console.log(e)
+      // resultDiv.innerHTML =
+      //     'WebCam not available.<br/>' +
+      //     'This demo requires WebCam access with this browser.';
       return;
     }
   }
 
   runPredictions = async() => {
-    hideElement([classificationDiv, guessButton])
-
-    let webcamImage = webcam.capture();
+    let webcamImage = this.webcam.capture();
     let resizedWebcam = tf.image.resizeBilinear(webcamImage, [224, 224]);
-    let predictions = await model.classify(resizedWebcam);
+    this.predictions = await this.model.classify(resizedWebcam);
 
-    resultDiv.innerText = '';
-    resultDiv.innerHTML = `Is it a ${predictions[0].className.split(',')[0]}?`
-
-    classifyItem(predictions[0].className.split(',')[0])
+    return this.predictions;
   }
-
-  classifyItem = item => {
-    const yellowItemFound = find(yellowBinItems, yellowBinItem => item === yellowBinItem);
-    const redItemFound = find(redBinItems, redBinItem => item === redBinItem);
-
-    if(yellowItemFound){
-      displayButtons('yellow')
-    } else if(redItemFound) {
-      displayButtons('red')
-    } else {
-      displayButtons('none')
-    }
-  }
-
 }
