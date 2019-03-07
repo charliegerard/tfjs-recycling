@@ -5,6 +5,7 @@ body{
 
 .app{
   position: absolute;
+  background: radial-gradient(rgb(55, 73, 130), rgb(30, 41, 72));
   width: 100%;
   height: 100%;
   margin: 0;
@@ -16,19 +17,36 @@ body{
 h1, h2{
   text-align: center;
   font-family: "Open Sans", "Helvetica";
-  width: 80%;
-  margin: 0 auto;
+  margin: .5em auto;
 }
 
 h1{
-  font-size: 25px;
-  font-weight: 600;
+  font-weight: 800;
+  color: white;
+}
+
+h1.earth{
+  font-size: 6em;
+  margin-bottom: 0;
 }
 
 h2{
+  font-weight: 300;
+  color: rgb(199, 255, 131);
+  font-size: .9em;
+  width: 85%;
+}
+
+.intro p{
   font-weight: 400;
-  font-size: 14px;
+  font-size: .6em;
   width: 60%;
+  text-align: center;
+  font-family: "Open Sans", "Helvetica";
+  width: 80%;
+  margin: 0 auto;
+  color: rgb(104, 172, 250);
+  font-weight: 200;
 }
 
 .app .intro{
@@ -38,11 +56,13 @@ h2{
 
 .intro .start-button{
   display: block;
-  margin: 1em auto;
-  border: 1px solid black;
+  margin: 2em auto;
+  border: 1px solid white;
   background: none;
   border-radius: .3em;
   padding: .5em 1em;
+  color: white;
+  font-size: .8em;
 }
 
 .blinking{
@@ -93,11 +113,9 @@ video{
   bottom: 0;
   width: 100%;
   z-index: 10;
-  background: rgba(100,100,100,0.5);
+  background: rgba(130, 128, 128, 0.5);
   padding: 1em 0;
 }
-
-
 
 #guess-button{
   background-color: rgb(134,240,190);
@@ -153,4 +171,42 @@ video{
   display: none;
   margin: 0 auto;
   font-size: 14px;
+}
+
+@media(min-width:600px){
+  h1{
+    font-size: 2em;
+  }
+
+  h2{
+    font-size: 1em;
+    width: 70%;
+  }
+
+  .intro p{
+    font-size: .8em;
+  }
+
+  .intro .start-button{
+    font-size: .8em;
+  }
+}
+
+@media(min-width:800px){
+  h1{
+    font-size: 3em;
+  }
+
+  h2{
+    font-size: 1.3em;
+    width: 100%;
+  }
+
+  .intro p{
+    font-size: .9em;
+  }
+
+  .intro .start-button{
+    font-size: 1em;
+  }
 }

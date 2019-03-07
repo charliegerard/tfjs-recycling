@@ -1,5 +1,5 @@
 import ImageRecognition from './ImageRecognition.js';
-import {hideElement, showElement} from './utils.js';
+import {hideElement, showElement} from './utils/utils.js';
 import {find} from 'lodash';
 import {yellowBinItems} from './data/yellowBinList';
 import {redBinItems} from './data/redBinList';

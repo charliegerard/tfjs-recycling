@@ -2,23 +2,24 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Image recognition for easier recycling</title>
+    <title>Machine learning and image recognition for easier recycling.</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:200,300,400,800" rel="stylesheet">
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
-    <section class="app">
-      <div class="intro">
-        <h1>Recyclable or not recyclable?</h1>
-        <h2>Use image recognition with machine learning to find out!</h2>
+    <main class="app">
+      <section class="intro">
+        <h1 class="earth">🌏</h1>
+        <h1>Can I recycle that?</h1>
+        <h2>Use machine learning and image recognition to help you recycle!</h2>
+        <p>(This website will need access to your camera)</p>
         <button class="start-button blinking">Initializing...</button>
-      </div>
-      <div class="feed">
+      </section>
+      <section class="feed">
         <div id="webcam-frame">
           <video id="webcam" width="224" height="224" autoplay playsinline muted></video>
         </div>
-
         <section class="classification-content">
           <button id="guess-button" class="blinking">Initializing...</button>
           <div id="result"></div>
@@ -30,9 +31,8 @@
           <div id="extra-details"></div>
           <div id="next">Start again</div>
         </section>
-      </div>
-    </section>
-    <!-- <canvas width="224" height="224"></canvas> -->
+      </section>
+    </main>
     <script src="./bundle.js" charset="utf-8"></script>
   </body>
 </html>
