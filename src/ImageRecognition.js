@@ -1,10 +1,7 @@
 import * as tf from '@tensorflow/tfjs';
-import * as mobilenet from '@tensorflow-models/mobilenet';
-import {hideElement, showElement} from './utils.js';
-import {IMAGENET_CLASSES} from './data/imagenet_classes';
-import {Webcam} from './webcam';
-import {isMobile} from './utils';
-
+import * as cocoSsd from "@tensorflow-models/coco-ssd";
+import {Webcam} from './utils/webcam';
+import {isMobile} from './utils/utils';
 
 export default class ImageRecognition {
   constructor(){
@@ -14,7 +11,7 @@ export default class ImageRecognition {
   }
 
   loadModel = async() => {
-    this.model = await mobilenet.load();
+    this.model = await cocoSsd.load();;
     return this.model;
   }
 
@@ -32,19 +29,13 @@ export default class ImageRecognition {
       await this.webcam.setup({'video': {facingMode: facingMode}, 'audio': false});
       console.log('WebCam sccessfully initialized');
     } catch (e) {
-      console.log(e)
-      // resultDiv.innerHTML =
-      //     'WebCam not available.<br/>' +
-      //     'This demo requires WebCam access with this browser.';
-      return;
+      return e;
     }
   }
 
   runPredictions = async() => {
-    let webcamImage = this.webcam.capture();
-    let resizedWebcam = tf.image.resizeBilinear(webcamImage, [224, 224]);
-    this.predictions = await this.model.classify(resizedWebcam);
-
+    let webcamImage = this.webcam.webcamElement;
+    this.predictions = await this.model.detect(webcamImage);
     return this.predictions;
   }
 }

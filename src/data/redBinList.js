@@ -14,6 +14,19 @@ export const redBinItems = [
   'lemon',
   'pineapple',
   'banana',
-  'pizza'
+  'pizza',
+  'umbrella',
+  'handbag',
+  'fork',
+  'spoon',
+  'knife',
+  'banana',
+  'apple',
+  'sandwich',
+  'orange',
+  'broccoli',
+  'carrot',
+  'donut',
+  'toothbrush'
 ]
 

@@ -17,8 +17,6 @@ export default class App{
     this.introBlock = document.getElementsByClassName('intro')[0];
     this.feedSection = document.getElementsByClassName('feed')[0];
     this.recognitionFeature = new ImageRecognition();
-
-    this.modelLoaded = false;
   }
 
   init = () => {
@@ -36,25 +34,26 @@ export default class App{
 
     this.recognitionFeature.initiateWebcam()
       .then(() => {
-
-          this.guessButton.classList.remove('blinking');
-          this.guessButton.innerText = 'Is this recyclable?';
-          this.guessButton.onclick = () => {
-            this.predict();
-          };
-
+        this.guessButton.classList.remove('blinking');
+        this.guessButton.innerText = 'Is this recyclable?';
+        this.guessButton.onclick = () => {
+          this.predict();
+        };
+      }).catch(() => {
+        hideElement(this.guessButton);
+        this.resultDiv.innerHTML = `Webcam not available. This demo requires webcam access.`;
       })
   }
 
   predict = () => {
     this.recognitionFeature.runPredictions()
     .then((predictionsResult) => {
-      if(predictionsResult){
+      if(predictionsResult.length){
         this.resultDiv.innerText = '';
-        this.resultDiv.innerHTML = `Is it a ${predictionsResult[0].className.split(',')[0]}?`;
+        this.resultDiv.innerHTML = `Is it a ${predictionsResult[0].class.split(',')[0]}?`;
         hideElement([this.classificationDiv, this.guessButton]);
 
-        this.classifyItem(predictionsResult[0].className.split(',')[0]);
+        this.classifyItem(predictionsResult[0].class.split(',')[0]);
       }
     });
   }
@@ -89,11 +88,11 @@ export default class App{
     switch(color){
       case "yellow":
         content = `It is recyclable! Throw it in the ${color} bin! 🎉`;
-        hideElement([this.confirmationButtons, this.resultDiv]);
+        this.showFinalMessage(content);
         break;
       case "red":
         content = `It is not recyclable 😢Throw it in the ${color} bin.`;
-        hideElement([this.confirmationButtons, this.resultDiv]);
+        this.showFinalMessage(content);
         break;
       case "none":
         content = `Mmmm, I don't seem to know yet how to classify that but...\n
