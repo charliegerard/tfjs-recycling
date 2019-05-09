@@ -214,4 +214,16 @@ video{
   .intro .start-button{
     font-size: 1em;
   }
+
+  #guess-button{
+    font-size: 20px;
+  }
+
+  #result, #recycling-classification{
+    font-size: 20px;
+  }
+
+  #yes, #no, #next{
+    font-size: 20px;
+  }
 }
